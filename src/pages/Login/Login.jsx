@@ -3,9 +3,15 @@ import React, { use } from 'react';
 import loginLottie from '../../assets/lottie/login.json';
 import { AuthContext } from '../../context/AuthContext';
 import SocialLogin from '../Shared/SocialLogin';
+import { useLocation, useNavigate } from 'react-router';
 
 const Login = () => {
     const {userLogin}=use(AuthContext)
+    const location=useLocation();
+    console.log('Location in login page:',location);
+    const navigate=useNavigate();
+    const from=location.state || '/';
+
     const handleLogin=e=>{
         e.preventDefault();
         const form=e.target;
@@ -18,6 +24,7 @@ const Login = () => {
        userLogin(email,password)
        .then(res=>{
         console.log(res.user)
+        navigate(from);
        })
        .catch(error=>{
         console.log(error);
@@ -44,7 +51,7 @@ const Login = () => {
                             <button className="btn btn-neutral bg-blue-500 border-none mt-4">Login</button>
                         </fieldset>
                         </form>
-                        <SocialLogin></SocialLogin>
+                        <SocialLogin from={from}></SocialLogin>
                     </div>
                 </div>
             </div>

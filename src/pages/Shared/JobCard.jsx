@@ -5,7 +5,7 @@ import { Link } from 'react-router';
 const JobCard = ({job}) => {
     const {_id,title,company,location,description,salaryRange,requirements,company_logo}=job;
     return (
-        <div className="card bg-base-100 w-96 shadow-lg">
+        <div className="card bg-base-100  shadow-lg">
             <div className='flex gap-2'>
                 <figure>
                 <img
