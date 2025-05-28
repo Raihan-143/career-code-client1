@@ -1,18 +1,47 @@
 import React from 'react';
 import { Link, useParams } from 'react-router';
 import useAuth from '../../hooks/useAuth';
+import axios from 'axios';
+import Swal from 'sweetalert2';
 
 const JobApply = () => {
     const { id: jobId } = useParams();
     const { user } = useAuth()
     console.log(jobId, user);
-    const handleApplyForm=e=>{
+    const handleApplyForm = e => {
         e.preventDefault();
-        const form=e.target;
-        const linkedin=form.linkedin.value;
-        const github=form.github.value;
-        const resume=form.resume.value;
-        console.log(linkedin,github,resume);
+        const form = e.target;
+        const linkedin = form.linkedin.value;
+        const github = form.github.value;
+        const resume = form.resume.value;
+        // const email=form.email.value;
+        console.log(linkedin, github, resume);
+
+        const applicantion = {
+            jobId,
+            applicant: user.email,
+            linkedin,
+            github,
+            resume
+
+        }
+        //using Axios for saving data in db
+        axios.post('http://localhost:5000/applications', applicantion)
+            .then(res => {
+                console.log(res.data)
+                if (res.data.insertedId) {
+                    Swal.fire({
+                        position: "top-end",
+                        icon: "success",
+                        title: "Your application has been submitted",
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                }
+            })
+            .catch(error => {
+                console.log(error)
+            })
     }
     return (
         <div className='mt-5 text-center'>
@@ -28,9 +57,11 @@ const JobApply = () => {
 
                     <label className="label">Resume</label>
                     <input type="url" name='resume' className="input" placeholder="Resume link" />
+                    {/* <label className="label">Email</label>
+                    <input type="text" name='email' className="input" placeholder="Enter your email" /> */}
                     <input type="submit" className='btn cursor-pointer' value="Apply" />
                 </fieldset>
-                
+
             </form>
         </div>
     );
