@@ -30,8 +30,9 @@ const JobApply = () => {
             .then(res => {
                 console.log(res.data)
                 if (res.data.insertedId) {
+                    // alert('Your application is done!');
                     Swal.fire({
-                        position: "top-end",
+                        position: "top-center",
                         icon: "success",
                         title: "Your application has been submitted",
                         showConfirmButton: false,
