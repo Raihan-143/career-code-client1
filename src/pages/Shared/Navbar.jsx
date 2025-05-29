@@ -20,6 +20,12 @@ const Navbar = () => {
            <li><NavLink to='/myapplication'>My Applications</NavLink></li>
            </> 
         }
+        {/* for recruiter check role as well */}
+        {
+            user && <>
+            <li><NavLink to='/addjob'>Add Job</NavLink></li>
+            </>
+        }
     </>
     return (
         <div className="navbar bg-base-100 shadow-sm">
