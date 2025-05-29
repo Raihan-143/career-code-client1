@@ -1,5 +1,6 @@
 import React from 'react';
 import useAuth from '../../hooks/useAuth';
+import axios from 'axios';
 
 const AddJob = () => {
     const {user}=useAuth();
@@ -21,7 +22,20 @@ const AddJob = () => {
 
         //process responsibilities
         newJob.responsibilities=newJob.responsibilities.split(',').map(res=>res.trim());
+
+        newJob.status="active";
         console.log(newJob);
+
+        //save job to the db
+        axios.post('http://localhost:5000/jobs',newJob)
+        .then(res=>{
+            if(res.data.insertedId){
+                alert('Successfully done to apply your job!')
+            }
+        })
+        .catch(error=>{
+            console.log(error);
+        })
 
 
     }
