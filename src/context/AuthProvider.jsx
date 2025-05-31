@@ -35,7 +35,9 @@ const AuthProvider = ({children}) => {
             setLoading(false);
             if(currentUser?.email){
                 const userData={ emai: currentUser. email}
-                axios.post('http://localhost:5000/jwt',userData)
+                axios.post('http://localhost:5000/jwt',userData,{
+                    withCredentials:true
+                })
                 .then(res=>{
                     console.log('Token after jwt',res.data)
                 })
