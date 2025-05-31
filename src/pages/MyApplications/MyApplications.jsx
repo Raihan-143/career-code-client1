@@ -9,13 +9,12 @@ const MyApplications = () => {
     const {user}=useAuth();
     return (
         <div>
-            <h1 className='text-3xl text-center'>My Applications</h1>
-            <ApplicationStat></ApplicationStat>
             <Suspense fallback={'Loading your application'}>
                 <ApplicationList 
                ApplicationPromise={ApplicationPromise(user.email)}
                 ></ApplicationList>
             </Suspense>
+            <ApplicationStat></ApplicationStat>
         </div>
     );
 };
